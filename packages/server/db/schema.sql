@@ -37,3 +37,28 @@ CREATE TABLE response_values (
   question_id INTEGER REFERENCES questions(id),
   value TEXT
 );
+
+-- Approval levels for multi-step workflows
+CREATE TABLE approval_levels (
+  id SERIAL PRIMARY KEY,
+  form_id INTEGER REFERENCES forms(id),
+  level INTEGER NOT NULL,
+  role VARCHAR(50) NOT NULL
+);
+
+-- Conditional logic rules
+CREATE TABLE visibility_rules (
+  id SERIAL PRIMARY KEY,
+  question_id INTEGER REFERENCES questions(id),
+  depends_on INTEGER REFERENCES questions(id),
+  expected_value TEXT
+);
+
+-- Audit logs
+CREATE TABLE audit_logs (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id),
+  action TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+

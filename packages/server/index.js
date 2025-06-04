@@ -11,6 +11,19 @@ const users = [
   { id: 2, username: 'user', password: 'password', role: 'user' }
 ];
 
+const forms = [
+  {
+    id: 1,
+    title: 'Example Form',
+    questions: [
+      { id: 1, label: 'Your name?', type: 'text' },
+      { id: 2, label: 'Age?', type: 'number', visibleIf: { questionId: 1, value: 'show' } }
+    ]
+  }
+];
+
+const audit = [];
+
 app.post('/auth/login', (req, res) => {
   const { username, password } = req.body;
   const user = users.find(u => u.username === username && u.password === password);
@@ -23,6 +36,16 @@ app.post('/auth/login', (req, res) => {
 
 app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello World' });
+});
+
+app.get('/api/forms', (req, res) => {
+  res.json(forms);
+});
+
+app.post('/api/audit', (req, res) => {
+  const entry = { id: audit.length + 1, ...req.body, created_at: new Date() };
+  audit.push(entry);
+  res.json({ success: true });
 });
 
 const PORT = process.env.PORT || 3000;
