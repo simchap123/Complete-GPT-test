@@ -1,0 +1,12 @@
+{
+  "name": "form-builder-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/server",
+    "packages/web"
+  ],
+  "scripts": {
+    "install:all": "npm install --workspaces",
+    "test": "echo \"no tests yet\""
+  }
+}
