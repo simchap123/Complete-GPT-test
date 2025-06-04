@@ -31,7 +31,19 @@ npm run dev
 
 Environment variables can be configured using `.env` based on `.env.example`.
 Add `SUPABASE_URL` and `SUPABASE_KEY` to connect the backend to your Supabase
-project.
+project. `DATABASE_URL` is used for direct Postgres access with the
+[`postgres`](https://www.npmjs.com/package/postgres) client.
+
+Example database module:
+
+```javascript
+import postgres from 'postgres';
+
+const connectionString = process.env.DATABASE_URL;
+const sql = postgres(connectionString);
+
+export default sql;
+```
 
 ## Form Builder UI
 
